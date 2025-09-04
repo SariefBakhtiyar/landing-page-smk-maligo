@@ -6,203 +6,162 @@
     <title>Sistem Informasi - SMK Maligo</title>
     <link rel="icon" href="logo.png" type="image/png">
     <style>
-        /* Variabel Warna untuk Dark/Light Mode */
         :root {
             --bg-color: #f0f2f5;
             --text-color: #4a4a4a;
             --footer-color: #888;
             --button-hover-opacity: 0.9;
-            /* Warna Tombol */
-            --briefing-bg: #25D366; /* Hijau */
-            --ijin-bg: #007BFF; /* Biru */
-            --kehadiran-bg: #ffc107; /* Kuning Amber */
-            --jurnal-bg: #6f42c1; /* Ungu */
+            --briefing-bg: #25D366; --ijin-bg: #007BFF;
+            --kehadiran-bg: #ffc107; --jurnal-bg: #6f42c1;
         }
-
         [data-theme='dark'] {
             --bg-color: #121212;
             --text-color: #e0e0e0;
             --footer-color: #bbb;
         }
-
         html, body {
-            height: 100%;
-            margin: 0;
+            height: 100%; margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-color); color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
         }
-
         .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            padding-bottom: 60px; /* Beri ruang ekstra di bawah agar tidak tertutup footer */
-            box-sizing: border-box;
-            text-align: center;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            min-height: 100vh; padding: 20px;
+            padding-bottom: 80px; /* Lebih banyak ruang untuk footer responsif */
+            box-sizing: border-box; text-align: center;
         }
-
         .logo {
-            max-width: 110px;
-            margin-bottom: 25px;
-            border-radius: 15px;
+            max-width: 110px; margin-bottom: 25px; border-radius: 15px;
         }
-        
         .info-text {
-            max-width: 550px;
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 35px;
-            opacity: 0.9;
+            max-width: 550px; font-size: 16px; line-height: 1.6;
+            margin-bottom: 35px; opacity: 0.9;
         }
-
         .button-group {
-            width: 100%;
-            max-width: 400px;
+            width: 100%; max-width: 400px;
         }
-
         .button {
-            display: block;
-            width: 100%;
-            color: #ffffff;
-            padding: 20px 25px;
-            margin-bottom: 20px;
-            text-decoration: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
+            display: block; width: 100%; color: #ffffff;
+            padding: 20px 25px; margin-bottom: 20px;
+            text-decoration: none; border-radius: 12px;
+            font-size: 18px; font-weight: bold;
             box-sizing: border-box;
             transition: opacity 0.3s, transform 0.2s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .button:hover {
             opacity: var(--button-hover-opacity);
             transform: translateY(-2px);
         }
-        
         .button-briefing { background-color: var(--briefing-bg); }
         .button-ijin { background-color: var(--ijin-bg); }
-        .button-kehadiran { background-color: var(--kehadiran-bg); color: #212529; } /* Teks gelap agar kontras */
+        .button-kehadiran { background-color: var(--kehadiran-bg); color: #212529; }
         .button-jurnal { background-color: var(--jurnal-bg); }
 
-
+        /* ===== CSS FOOTER RESPONSIVE ===== */
         .footer {
             position: absolute;
-            bottom: 15px; /* Sedikit naik agar tidak terlalu mepet */
+            bottom: 15px;
+            left: 0;
+            right: 0;
             width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
             text-align: center;
             font-size: 14px;
             color: var(--footer-color);
         }
-
+        .footer p {
+            margin: 0;
+        }
         .footer a {
-            color: inherit;
-            text-decoration: none;
-            font-weight: 600; /* Sedikit tebal */
+            color: inherit; text-decoration: none; font-weight: 600;
         }
         .footer a:hover {
             text-decoration: underline;
         }
+        .footer .separator {
+            margin: 0 8px; /* Jarak pemisah di layar besar */
+        }
 
+        /* Aturan untuk layar kecil (lebar di bawah 480px) */
+        @media (max-width: 480px) {
+            .footer .separator {
+                display: none; /* Sembunyikan pemisah "|" */
+            }
+            .footer .break {
+                display: block; /* Buat elemen ini menjadi baris baru */
+            }
+        }
+        /* ===== AKHIR CSS FOOTER ===== */
 
-        /* Toggle Button untuk Dark Mode */
         .theme-switch-wrapper {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            position: absolute; top: 20px; right: 20px;
         }
         .theme-switch {
-            display: inline-block;
-            height: 24px;
-            position: relative;
-            width: 48px;
+            display: inline-block; height: 24px; position: relative; width: 48px;
         }
         .theme-switch input { display: none; }
         .slider {
-            background-color: #ccc;
-            position: absolute;
-            cursor: pointer;
+            background-color: #ccc; position: absolute; cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
-            transition: .4s;
-            border-radius: 34px;
+            transition: .4s; border-radius: 34px;
         }
         .slider:before {
-            background-color: #fff;
-            position: absolute;
-            content: "";
-            height: 16px; width: 16px;
-            left: 4px; bottom: 4px;
-            transition: .4s;
-            border-radius: 50%;
+            background-color: #fff; position: absolute; content: "";
+            height: 16px; width: 16px; left: 4px; bottom: 4px;
+            transition: .4s; border-radius: 50%;
         }
         input:checked + .slider { background-color: #2196F3; }
         input:checked + .slider:before { transform: translateX(24px); }
     </style>
 </head>
 <body>
-
     <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox" />
             <div class="slider round"></div>
         </label>
     </div>
-
     <div class="container">
         <img src="logo.png" alt="Logo SMK Maligo" class="logo">
-        
         <p class="info-text">
             Dalam rangka meningkatkan efisiensi dan modernisasi administrasi, SMK Maligo meluncurkan sistem informasi digital. Halaman ini adalah gerbang utama untuk mengakses layanan administrasi secara cepat dan mudah.
         </p>
-        
         <div class="button-group">
-            <a href="https://wa.me/6287737776767?text=BRIEFING" class="button button-briefing" target="_blank">
-                Daftar Hadir & Notulensi
-            </a>
-            
-            <a href="https://wa.me/6288239528152?text=IJIN" class="button button-ijin" target="_blank">
-                Ijin Guru & Karyawan
-            </a>
-
-            <a href="https://docs.google.com/spreadsheets/d/1rDD8dee53D7zGqqJtco2Sl-IFFS7hkDmrlaCRCnZdX4/edit?usp=sharing" class="button button-kehadiran" target="_blank">
-                Kehadiran Siswa
-            </a>
-            
-            <a href="https://sites.google.com/guru.smk.belajar.id/smkmaarif5gombong/perangkat-pembelajaran/jurnal-mengajar" class="button button-jurnal" target="_blank">
-                Jurnal Mengajar
-            </a>
+            <a href="https://wa.me/6287737776767?text=BRIEFING" class="button button-briefing" target="_blank">Daftar Hadir & Notulensi</a>
+            <a href="https://wa.me/6288239528152?text=IJIN" class="button button-ijin" target="_blank">Ijin Guru & Karyawan</a>
+            <a href="https://docs.google.com/spreadsheets/d/1rDD8dee53D7zGqqJtco2Sl-IFFS7hkDmrlaCRCnZdX4/edit?usp=sharing" class="button button-kehadiran" target="_blank">Kehadiran Siswa</a>
+            <a href="https://sites.google.com/guru.smk.belajar.id/smkmaarif5gombong/perangkat-pembelajaran/jurnal-mengajar" class="button button-jurnal" target="_blank">Jurnal Mengajar</a>
         </div>
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 SMK MALIGO | Developed by <a href="https://sariefbakhtiyar.com" target="_blank">sariefbakhtiyar.com</a></p>
+        <p>
+            <span>&copy; 2025 SMK MALIGO</span>
+            <span class="separator">|</span>
+            <span class="break"></span> <span>Developed by <a href="https://sariefbakhtiyar.com" target="_blank">sariefbakhtiyar.com</a></span>
+        </p>
     </div>
 
     <script>
         const checkbox = document.getElementById('checkbox');
         const currentTheme = localStorage.getItem('theme');
-
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             checkbox.checked = theme === 'dark';
         }
-
         if (currentTheme) {
             setTheme(currentTheme);
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             setTheme('dark');
         }
-
         checkbox.addEventListener('change', () => {
             setTheme(checkbox.checked ? 'dark' : 'light');
         });
     </script>
-
 </body>
 </html>
