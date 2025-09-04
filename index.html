@@ -10,11 +10,13 @@
         :root {
             --bg-color: #f0f2f5;
             --text-color: #4a4a4a;
-            --button-briefing-bg: #25D366;
-            --button-ijin-bg: #007BFF;
-            --button-text-color: #ffffff;
             --footer-color: #888;
             --button-hover-opacity: 0.9;
+            /* Warna Tombol */
+            --briefing-bg: #25D366; /* Hijau */
+            --ijin-bg: #007BFF; /* Biru */
+            --kehadiran-bg: #ffc107; /* Kuning Amber */
+            --jurnal-bg: #6f42c1; /* Ungu */
         }
 
         [data-theme='dark'] {
@@ -39,12 +41,13 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            padding-bottom: 60px; /* Beri ruang ekstra di bawah agar tidak tertutup footer */
             box-sizing: border-box;
             text-align: center;
         }
 
         .logo {
-            max-width: 110px; /* Sedikit lebih kecil agar lebih proporsional */
+            max-width: 110px;
             margin-bottom: 25px;
             border-radius: 15px;
         }
@@ -54,7 +57,6 @@
             font-size: 16px;
             line-height: 1.6;
             margin-bottom: 35px;
-            color: var(--text-color);
             opacity: 0.9;
         }
 
@@ -66,7 +68,7 @@
         .button {
             display: block;
             width: 100%;
-            color: var(--button-text-color);
+            color: #ffffff;
             padding: 20px 25px;
             margin-bottom: 20px;
             text-decoration: none;
@@ -83,13 +85,11 @@
             transform: translateY(-2px);
         }
         
-        .button-briefing {
-            background-color: var(--button-briefing-bg);
-        }
+        .button-briefing { background-color: var(--briefing-bg); }
+        .button-ijin { background-color: var(--ijin-bg); }
+        .button-kehadiran { background-color: var(--kehadiran-bg); color: #212529; } /* Teks gelap agar kontras */
+        .button-jurnal { background-color: var(--jurnal-bg); }
 
-        .button-ijin {
-            background-color: var(--button-ijin-bg);
-        }
 
         .footer {
             position: absolute;
@@ -110,9 +110,6 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         .theme-switch {
             display: inline-block;
@@ -165,6 +162,14 @@
             
             <a href="https://wa.me/6288239528152?text=IJIN" class="button button-ijin" target="_blank">
                 Ijin Guru & Karyawan
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1rDD8dee53D7zGqqJtco2Sl-IFFS7hkDmrlaCRCnZdX4/edit?usp=sharing" class="button button-kehadiran" target="_blank">
+                Kehadiran Siswa
+            </a>
+            
+            <a href="https://sites.google.com/guru.smk.belajar.id/smkmaarif5gombong/perangkat-pembelajaran/jurnal-mengajar" class="button button-jurnal" target="_blank">
+                Jurnal Mengajar
             </a>
         </div>
     </div>
