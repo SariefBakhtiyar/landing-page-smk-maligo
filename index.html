@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Informasi - SMK Maligo</title>
-    <link rel="icon" href="https://i.imgur.com/rP6eX1G.png" type="image/png">
+    <link rel="icon" href="logo.png" type="image/png">
     <style>
         /* Variabel Warna untuk Dark/Light Mode */
         :root {
-            --bg-color: #f0f2f5; /* Warna latar belakang sedikit abu-abu seperti WhatsApp Web */
-            --text-color: #333;
-            --button-briefing-bg: #25D366; /* Hijau WhatsApp */
-            --button-ijin-bg: #007BFF; /* Biru */
+            --bg-color: #f0f2f5;
+            --text-color: #4a4a4a;
+            --button-briefing-bg: #25D366;
+            --button-ijin-bg: #007BFF;
             --button-text-color: #ffffff;
             --footer-color: #888;
             --button-hover-opacity: 0.9;
@@ -19,7 +19,7 @@
 
         [data-theme='dark'] {
             --bg-color: #121212;
-            --text-color: #f0f0f0;
+            --text-color: #e0e0e0;
             --footer-color: #bbb;
         }
 
@@ -40,28 +40,37 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
+            text-align: center;
         }
 
         .logo {
-            max-width: 120px;
-            margin-bottom: 40px; /* Jarak lebih besar antara logo dan tombol */
+            max-width: 110px; /* Sedikit lebih kecil agar lebih proporsional */
+            margin-bottom: 25px;
             border-radius: 15px;
+        }
+        
+        .info-text {
+            max-width: 550px;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            color: var(--text-color);
+            opacity: 0.9;
         }
 
         .button-group {
             width: 100%;
-            max-width: 400px; /* Lebar maksimal tombol agar tidak terlalu lebar di desktop */
+            max-width: 400px;
         }
 
         .button {
             display: block;
             width: 100%;
             color: var(--button-text-color);
-            padding: 20px 25px; /* Tombol lebih besar dan nyaman disentuh */
+            padding: 20px 25px;
             margin-bottom: 20px;
-            text-align: center;
             text-decoration: none;
-            border-radius: 12px; /* Sudut lebih tumpul */
+            border-radius: 12px;
             font-size: 18px;
             font-weight: bold;
             box-sizing: border-box;
@@ -71,7 +80,7 @@
 
         .button:hover {
             opacity: var(--button-hover-opacity);
-            transform: translateY(-2px); /* Efek sedikit terangkat saat disentuh */
+            transform: translateY(-2px);
         }
         
         .button-briefing {
@@ -143,7 +152,11 @@
     </div>
 
     <div class="container">
-        <img src="https://i.imgur.com/rP6eX1G.png" alt="Logo SMK Maligo" class="logo">
+        <img src="logo.png" alt="Logo SMK Maligo" class="logo">
+        
+        <p class="info-text">
+            Dalam rangka meningkatkan efisiensi dan modernisasi administrasi, SMK Maligo meluncurkan sistem informasi digital. Halaman ini adalah gerbang utama untuk mengakses layanan administrasi secara cepat dan mudah.
+        </p>
         
         <div class="button-group">
             <a href="https://wa.me/6287737776767?text=BRIEFING" class="button button-briefing" target="_blank">
@@ -164,21 +177,18 @@
         const checkbox = document.getElementById('checkbox');
         const currentTheme = localStorage.getItem('theme');
 
-        // Fungsi untuk mengatur tema
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             checkbox.checked = theme === 'dark';
         }
 
-        // Cek tema yang tersimpan atau tema preferensi sistem
         if (currentTheme) {
             setTheme(currentTheme);
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark'); // Otomatis dark mode jika sistem pengguna dark
+            setTheme('dark');
         }
 
-        // Event listener untuk toggle
         checkbox.addEventListener('change', () => {
             setTheme(checkbox.checked ? 'dark' : 'light');
         });
