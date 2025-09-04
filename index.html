@@ -19,18 +19,27 @@
             --text-color: #e0e0e0;
             --footer-color: #bbb;
         }
-        html, body {
-            height: 100%; margin: 0;
+        html {
+            height: 100%;
+        }
+        body {
+            min-height: 100%; /* Memastikan body mengisi seluruh tinggi layar */
+            margin: 0;
+            display: flex; /* Mengaktifkan Flexbox */
+            flex-direction: column; /* Menyusun elemen secara vertikal */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color); color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
         }
-        .container {
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            min-height: 100vh; padding: 20px;
-            padding-bottom: 80px; /* Lebih banyak ruang untuk footer responsif */
-            box-sizing: border-box; text-align: center;
+        .main-content {
+            flex: 1 0 auto; /* Ini adalah kunci agar konten mendorong footer ke bawah */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
         .logo {
             max-width: 110px; margin-bottom: 25px; border-radius: 15px;
@@ -60,45 +69,40 @@
         .button-kehadiran { background-color: var(--kehadiran-bg); color: #212529; }
         .button-jurnal { background-color: var(--jurnal-bg); }
 
-        /* ===== CSS FOOTER RESPONSIVE ===== */
         .footer {
-            position: absolute;
-            bottom: 15px;
-            left: 0;
-            right: 0;
+            flex-shrink: 0; /* Mencegah footer menyusut */
             width: 100%;
-            padding: 0 10px;
+            padding: 20px 10px;
             box-sizing: border-box;
             text-align: center;
             font-size: 14px;
             color: var(--footer-color);
         }
-        .footer p {
-            margin: 0;
-        }
+        .footer p { margin: 0; }
         .footer a {
             color: inherit; text-decoration: none; font-weight: 600;
         }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        .footer .separator {
-            margin: 0 8px; /* Jarak pemisah di layar besar */
-        }
-
-        /* Aturan untuk layar kecil (lebar di bawah 480px) */
+        .footer a:hover { text-decoration: underline; }
+        .footer .separator { margin: 0 8px; }
         @media (max-width: 480px) {
-            .footer .separator {
-                display: none; /* Sembunyikan pemisah "|" */
-            }
-            .footer .break {
-                display: block; /* Buat elemen ini menjadi baris baru */
-            }
+            .footer .separator { display: none; }
+            .footer .break { display: block; }
         }
-        /* ===== AKHIR CSS FOOTER ===== */
 
         .theme-switch-wrapper {
-            position: absolute; top: 20px; right: 20px;
+            position: absolute; top: 15px; right: 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .theme-label {
+            font-size: 14px;
+            color: var(--text-color);
+            font-weight: normal;
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .theme-label.active {
+            font-weight: bold;
+            opacity: 1;
         }
         .theme-switch {
             display: inline-block; height: 24px; position: relative; width: 48px;
@@ -120,12 +124,15 @@
 </head>
 <body>
     <div class="theme-switch-wrapper">
+        <span class="theme-label" id="theme-light-label">Light</span>
         <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox" />
             <div class="slider round"></div>
         </label>
+        <span class="theme-label" id="theme-dark-label">Dark</span>
     </div>
-    <div class="container">
+
+    <main class="main-content">
         <img src="logo.png" alt="Logo SMK Maligo" class="logo">
         <p class="info-text">
             Dalam rangka meningkatkan efisiensi dan modernisasi administrasi, SMK Maligo meluncurkan sistem informasi digital. Halaman ini adalah gerbang utama untuk mengakses layanan administrasi secara cepat dan mudah.
@@ -136,28 +143,40 @@
             <a href="https://docs.google.com/spreadsheets/d/1rDD8dee53D7zGqqJtco2Sl-IFFS7hkDmrlaCRCnZdX4/edit?usp=sharing" class="button button-kehadiran" target="_blank">Kehadiran Siswa</a>
             <a href="https://sites.google.com/guru.smk.belajar.id/smkmaarif5gombong/perangkat-pembelajaran/jurnal-mengajar" class="button button-jurnal" target="_blank">Jurnal Mengajar</a>
         </div>
-    </div>
+    </main>
 
-    <div class="footer">
+    <footer class="footer">
         <p>
             <span>&copy; 2025 SMK MALIGO</span>
             <span class="separator">|</span>
-            <span class="break"></span> <span>Developed by <a href="https://sariefbakhtiyar.com" target="_blank">sariefbakhtiyar.com</a></span>
+            <span class="break"></span>
+            <span>Developed by <a href="https://sariefbakhtiyar.com" target="_blank">sariefbakhtiyar.com</a></span>
         </p>
-    </div>
+    </footer>
 
     <script>
         const checkbox = document.getElementById('checkbox');
+        const lightLabel = document.getElementById('theme-light-label');
+        const darkLabel = document.getElementById('theme-dark-label');
         const currentTheme = localStorage.getItem('theme');
+
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            checkbox.checked = theme === 'dark';
+            if (theme === 'dark') {
+                checkbox.checked = true;
+                darkLabel.classList.add('active');
+                lightLabel.classList.remove('active');
+            } else {
+                checkbox.checked = false;
+                lightLabel.classList.add('active');
+                darkLabel.classList.remove('active');
+            }
         }
         if (currentTheme) {
             setTheme(currentTheme);
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark');
+        } else {
+            setTheme('light'); // Default ke light mode
         }
         checkbox.addEventListener('change', () => {
             setTheme(checkbox.checked ? 'dark' : 'light');
